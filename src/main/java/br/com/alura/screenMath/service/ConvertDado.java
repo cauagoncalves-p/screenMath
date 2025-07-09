@@ -8,7 +8,7 @@ public class ConvertDado implements IConvertDados{
     @Override
     public <T> T obterDados(String json, Class<T> Class) {
         try {
-            return mapper.readValue(json, Class);
+            return mapper .readValue(json, Class);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
