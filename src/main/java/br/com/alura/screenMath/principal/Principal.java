@@ -1,9 +1,6 @@
 package br.com.alura.screenMath.principal;
 
-import br.com.alura.screenMath.model.DadosEpisodio;
-import br.com.alura.screenMath.model.DadosSerie;
-import br.com.alura.screenMath.model.DadosTemporadas;
-import br.com.alura.screenMath.model.Episodio;
+import br.com.alura.screenMath.model.*;
 import br.com.alura.screenMath.service.ConsumoAPI;
 import br.com.alura.screenMath.service.ConvertDado;
 import org.springframework.boot.autoconfigure.security.servlet.StaticResourceRequest;
@@ -57,7 +54,12 @@ public class Principal {
     }
 
     private void listarSeriesBuscadas() {
-        dadosSeries.forEach(System.out::println);
+        List<Serie> series = new ArrayList<>();
+        series = dadosSeries.stream()
+                        .map(d -> new Serie(d))
+                                .collect(Collectors.toList());
+        series.stream().sorted(Comparator.comparing(Serie::getGenero))
+                .forEach(System.out::println);
     }
 
     private void buscarSerieWeb() {
