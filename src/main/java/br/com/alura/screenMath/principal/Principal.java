@@ -1,8 +1,10 @@
 package br.com.alura.screenMath.principal;
 
 import br.com.alura.screenMath.model.*;
+import br.com.alura.screenMath.repository.SerieRepository;
 import br.com.alura.screenMath.service.ConsumoAPI;
 import br.com.alura.screenMath.service.ConvertDado;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.StaticResourceRequest;
 import org.springframework.format.datetime.DateTimeFormatAnnotationFormatterFactory;
 
@@ -19,6 +21,13 @@ public class Principal {
     private final String ENDERECO = "https://www.omdbapi.com/?t=";
     private final String API_KEY = "&apikey=b2f8e6b";
     private List<DadosSerie> dadosSeries = new ArrayList<>();
+
+
+    private SerieRepository repository;
+
+    public Principal(SerieRepository repositorio) {
+        this.repository = repositorio;
+    }
 
     public void exibeMenu() {
         var opcao = -1;
@@ -64,7 +73,9 @@ public class Principal {
 
     private void buscarSerieWeb() {
         DadosSerie dados = getDadosSerie();
-        dadosSeries.add(dados);
+        Serie serie = new Serie(dados);
+        //dadosSeries.add(dados);
+        repository.save(serie);
         System.out.println(dados);
     }
 
