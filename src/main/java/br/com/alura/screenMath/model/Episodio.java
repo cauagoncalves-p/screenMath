@@ -1,9 +1,15 @@
 package br.com.alura.screenMath.model;
 
+import jakarta.persistence.*;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
-
+@Entity
+@Table(name = "episodios")
 public class Episodio {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
     private Integer temporada;
     private String titulo;
     private Integer numeroEpisodio;
@@ -50,6 +56,26 @@ public class Episodio {
         this.numeroEpisodio = numeroEpisodio;
     }
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public Serie getSerie() {
+        return Serie;
+    }
+
+    public void setSerie(Serie serie) {
+        Serie = serie;
+    }
+
+    @OneToOne
+    private Serie Serie;
+
+    public Episodio(){}
     public Episodio(Integer numeroTemporada, DadosEpisodio episodio) {
         this.temporada = numeroTemporada;
         this.titulo = episodio.titulo();
