@@ -72,10 +72,13 @@ public class Episodio {
         Serie = serie;
     }
 
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "serie_id")
     private Serie Serie;
 
     public Episodio(){}
+
+
     public Episodio(Integer numeroTemporada, DadosEpisodio episodio) {
         this.temporada = numeroTemporada;
         this.titulo = episodio.titulo();
